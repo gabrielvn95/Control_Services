@@ -13,15 +13,9 @@ class VehiclesController < ApplicationController
 
   # GET /vehicles/new
   def new
-    @vehicle = Vehicle.new
     @clients = Client.all
-
-    if @vehicle.save
-      redirect_to @vehicle 
-    else 
-      render :new
+    @vehicle = Vehicle.new
   end
-end
 
   # GET /vehicles/1/edit
   def edit
