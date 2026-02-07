@@ -1,42 +1,40 @@
-<%= form_with(model: vehicle) do |form| %>
-  <% if vehicle.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(vehicle.errors.count, "error") %> prohibited this vehicle from being saved:</h2>
+<%= form_with(model: vehicle, local: true) do |f| %>
 
-      <ul>
-        <% vehicle.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+  <% if vehicle.errors.any? %>
+    <div class="alert alert-danger">
+      <h6 class="mb-2">
+        Não foi possível salvar o veículo:
+      </h6>
+      <ul class="mb-0">
+        <% vehicle.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :client_id, style: "display: block" %>
-    <%= form.text_field :client_id %>
+  <div class="mb-3">
+    <%= f.label :name, "Nome do Veículo", class: "form-label" %>
+    <%= f.text_field :name, class: "form-control", placeholder: "Ex: Gol, Civic, Corolla" %>
   </div>
 
-  <div>
-    <%= form.label :plate, style: "display: block" %>
-    <%= form.text_field :plate %>
+  <div class="mb-3">
+    <%= f.label :plate, "Placa", class: "form-label" %>
+    <%= f.text_field :plate, class: "form-control", placeholder: "ABC-1234" %>
   </div>
 
-  <div>
-    <%= form.label :brand, style: "display: block" %>
-    <%= form.text_field :brand %>
+  <div class="mb-3">
+    <%= f.label :client_id, "Cliente", class: "form-label" %>
+    <%= f.collection_select :client_id,
+          Client.order(:name),
+          :id,
+          :name,
+          { prompt: "Selecione um cliente" },
+          { class: "form-select" } %>
   </div>
 
-  <div>
-    <%= form.label :year, style: "display: block" %>
-    <%= form.number_field :year %>
+  <div class="d-flex justify-content-end gap-2">
+    <%= f.submit "Salvar Veículo", class: "btn btn-primary" %>
   </div>
 
-  <div>
-    <%= form.label :color, style: "display: block" %>
-    <%= form.text_field :color %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>

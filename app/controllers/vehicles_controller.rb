@@ -4,6 +4,7 @@ class VehiclesController < ApplicationController
   # GET /vehicles or /vehicles.json
   def index
     @vehicles = Vehicle.includes(:client).all
+
   end
 
   # GET /vehicles/1 or /vehicles/1.json
@@ -14,7 +15,13 @@ class VehiclesController < ApplicationController
   def new
     @vehicle = Vehicle.new
     @clients = Client.all
+
+    if @vehicle.save
+      redirect_to @vehicle 
+    else 
+      render :new
   end
+end
 
   # GET /vehicles/1/edit
   def edit
