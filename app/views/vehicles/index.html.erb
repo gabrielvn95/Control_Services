@@ -1,16 +1,45 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Vehicles" %>
 
-<h1>Vehicles</h1>
-
-<div id="vehicles">
-  <% @vehicles.each do |vehicle| %>
-    <%= render vehicle %>
-    <p>
-      <%= link_to "Show this vehicle", vehicle %>
-    </p>
+<div class="container mt-4">
+  <% if notice %>
+    <div class="alert alert-success">
+      <%= notice %>
+    </div>
   <% end %>
-</div>
 
-<%= link_to "New vehicle", new_vehicle_path %>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Vehicles</h1>
+    <%= link_to "New Vehicle", new_vehicle_path, class: "btn btn-primary" %>
+  </div>
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Plate</th>
+        <th>Brand</th>
+        <th>Year</th>
+        <th>Color</th>
+        <th>Client</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @vehicles.each do |vehicle| %>
+        <tr>
+          <td><%= vehicle.plate %></td>
+          <td><%= vehicle.brand %></td>
+          <td><%= vehicle.year %></td>
+          <td><%= vehicle.color %></td>
+          <td><%= vehicle.client.name %></td>
+          <td>
+            <%= link_to "Show", vehicle, class: "btn btn-sm btn-outline-primary" %>
+            <%= link_to "Edit", edit_vehicle_path(vehicle), class: "btn btn-sm btn-outline-warning" %>
+            <%= link_to "Delete", vehicle, method: :delete,
+                  data: { confirm: "Are you sure?" },
+                  class: "btn btn-sm btn-outline-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -3,7 +3,7 @@ class VehiclesController < ApplicationController
 
   # GET /vehicles or /vehicles.json
   def index
-    @vehicles = Vehicle.all
+    @vehicles = Vehicle.includes(:client).all
   end
 
   # GET /vehicles/1 or /vehicles/1.json
@@ -13,10 +13,12 @@ class VehiclesController < ApplicationController
   # GET /vehicles/new
   def new
     @vehicle = Vehicle.new
+    @clients = Client.all
   end
 
   # GET /vehicles/1/edit
   def edit
+    @client = Client.all
   end
 
   # POST /vehicles or /vehicles.json
@@ -60,7 +62,7 @@ class VehiclesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vehicle
-      @vehicle = Vehicle.find(params.expect(:id))
+      @vehicle = Vehicle.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

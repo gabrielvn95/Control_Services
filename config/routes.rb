@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root "home#index"
+root "vehicles#index"
+
 
   resources :vehicles
   resources :clients
